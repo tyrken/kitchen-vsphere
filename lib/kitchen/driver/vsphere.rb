@@ -82,7 +82,8 @@ module Kitchen
         server = compute.servers.get(clone_results['new_vm']['id'])
         state[:server_id] = server.id
         info "VSphere instance <#{state[:server_id]}> created."
-        server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address }
+        # Wait for the server to have a non-Link Local address
+        server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address !~ /^169\.254\./ }
         puts "\n(server ready)"
         server
       end
