@@ -83,7 +83,7 @@ module Kitchen
         state[:server_id] = server.id
         info "VSphere instance <#{state[:server_id]}> created."
         # Wait for the server to have a non-Link Local address
-        server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address !~ /^169\.254\./ }
+        server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address && public_ip_address !~ /^169\.254\./ }
         puts "\n(server ready)"
         server
       end
