@@ -93,7 +93,8 @@ module Kitchen
         clone_results = compute.vm_clone(server_configed)
         server = compute.servers.get(clone_results['new_vm']['id'])
         state[:server_id] = server.id
-        info "VSphere instance <#{state[:server_id]}> created."
+        state[:server_vmname] = server.name
+        info "VSphere instance <#{state[:server_id]}>, '#{state[:server_vmname]}' created."
         server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address }
         puts "\n(server ready)"
         server
