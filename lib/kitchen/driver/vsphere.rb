@@ -38,7 +38,8 @@ module Kitchen
         begin
           state[:hostname] = server.public_ip_address
           timeout(5) {
-            SSH.new(state[:hostname], config[:username], { :port => config[:port], :logger => logger }).wait
+            SSH.new(state[:hostname], config[:username],
+              { :port => config[:port], :logger => logger }).wait
             info "SSH connected to #{state[:hostname]}, port #{config[:port]}"
           }
         rescue Timeout::Error
@@ -95,8 +96,11 @@ module Kitchen
         server = compute.servers.get(clone_results['new_vm']['id'])
         state[:server_id] = server.id
         state[:server_vmname] = server.name
-        info "VSphere instance <#{state[:server_id]}>, '#{state[:server_vmname]}' created."
-        server.wait_for { print '.'; tools_state != 'toolsNotRunning' && public_ip_address }
+        info "VSphere instance <#{server.id}>, '#{server.name}' created."
+        server.wait_for {
+          print '.'
+          tools_state != 'toolsNotRunning' && public_ip_address
+        }
         puts "\n(server ready)"
         server
       end
