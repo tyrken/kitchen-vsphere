@@ -40,7 +40,7 @@ module Kitchen
           timeout(5) {
             SSH.new(state[:hostname], config[:username],
               { :port => config[:port], :logger => logger }).wait
-            info "SSH connected to #{state[:hostname]}, port #{config[:port]}"
+            info "SSH connected to #{state[:hostname]}:#{config[:port]}"
           }
         rescue Timeout::Error
           server = compute.servers.get(state[:server_id])
