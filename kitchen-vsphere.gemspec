@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'kitchen/driver/vsphere_version.rb'
 
 Gem::Specification.new do |gem|
-  gem.name          = "kitchen-vsphere"
+  gem.name          = "ttl-kitchen-vsphere"
   gem.version       = Kitchen::Driver::VSPHERE_VERSION
   gem.license       = 'Apache 2.0'
   gem.authors       = ["Matt Wrock"]
